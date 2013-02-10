@@ -19,10 +19,12 @@ class Bot:
 	def bind(self,pattern,response):
 		"Bind a matched regex to a response"
 		self.bindings[pattern] = response
+		return self
 
 	def when(self,condition,response):
 		"Bind a predicate function to a response"
 		self.conditions[condition] = response
+		return self
 
 	def __repr__(self): return "botbotbotbotbot"
 

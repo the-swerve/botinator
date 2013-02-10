@@ -7,7 +7,7 @@
 
 Pass server, port, nick, username, ircname, and channel.
 
-	from bot_api import *
+	from botinator import *
 	bot = Bot('irc.freenode.net','6667', 'imabot', 'bot', 'Winston Churchill', '#your_awesome_channel')
 
 ## Basic behavior:
@@ -48,11 +48,22 @@ Exceptions in your callback functions won't kill your bot if you don't catch em,
 
 ## Event responses
 
-You can bind a predicate function to a specific response as well:
+Sometimes you want behavior that's not based on messages. You can bind a
+predicate function to a specific response:
 
 	def is_420: return time.strftime("%I%M") == "0420"
 	bot.when(is_420,'420')
 
+## Supports chaining
+
+	bot.when(something,'say something').bind(r'(.*) pie(\.*)',eat_pie).when(happy,clap)
+
 ## Start your bot when you're done binding stuff
 
 	bot.live()
+
+### todo
+
+* Extract channel and then respond to that specific channel
+* Extract messenger name and pass to response function
+* Dynamically update bot while running event loop?
