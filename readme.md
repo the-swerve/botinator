@@ -1,7 +1,7 @@
 
 # ~~~~BOTINATOR~~~~
 
-## Super simple irc bot api
+## Super easy irc bot api
 
 ## Create your bot:
 
