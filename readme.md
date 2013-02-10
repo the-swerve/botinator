@@ -50,7 +50,7 @@ Exceptions in your callback functions won't kill your bot if you don't catch em,
 
 You can bind a predicate function to a specific response as well:
 
-	def is_420: return time.strftime("%I%M") == "1200"
+	def is_420: return time.strftime("%I%M") == "0420"
 	bot.when(is_420,'420')
 
 ## Start your bot when you're done binding stuff
