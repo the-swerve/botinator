@@ -46,6 +46,13 @@ You must also declare the 'messenger' for your callback functions, which is just
 
 Exceptions in your callback functions won't kill your bot if you don't catch em, but will just be printed. He's a toughy.
 
+## Event responses
+
+You can bind a predicate function to a specific response as well:
+
+	def is_420: return time.strftime("%I%M") == "1200"
+	bot.when(is_420,'420')
+
 ## Start your bot when you're done binding stuff
 
 	bot.live()
