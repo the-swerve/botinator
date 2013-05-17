@@ -11,6 +11,7 @@ class Bot:
 		self.port = port
 		self.irc.connect((server_name, int(port)))
 		self.bindings = {}
+		self.patterns = [] # store an ordered list of patterns.
 		self.conditions = {}
 		self.state = {}
 
@@ -30,6 +31,7 @@ class Bot:
 	
 	def bind(self,pattern,response):
 		"Bind a matched regex to a response"
+		self.patterns.append(pattern)
 		self.bindings[pattern] = response
 		return self
 
@@ -92,11 +94,12 @@ class Bot:
 				messenger = re.search(':(.*)!', pieces[0]).group(1)
 				if channel == self.nick: # querying
 					channel = messenger
-				for pattern, response in self.bindings.iteritems():
-					matches = re.findall(pattern, data)
+				for p in self.patterns:
+					matches = re.findall(p, data)
 					if matches:
-						print("Found match: " + str(pattern))
-						self.respond(channel,response,matches,messenger)
+						print("\nFound match: " + str(p))
+						self.respond(channel,self.bindings[p],matches,messenger)
+						break
 			# Check conditions.
 			for condition, response in self.conditions.iteritems():
 				if condition(): 

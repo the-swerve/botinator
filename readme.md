@@ -72,8 +72,7 @@ predicate function to a specific response:
 ### todo
 
 * Ordering of pattern matching 
-* Extract channel and then respond to that specific channel
-* Extract messenger name and pass to response function
 * Get 'when()' method working with toggling.
 * Make the bot's state modifiable.
 * Dynamically update bot while running event loop.
+* Write tests
