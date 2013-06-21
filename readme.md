@@ -71,8 +71,7 @@ predicate function to a specific response:
 
 ### todo
 
-* Ordering of pattern matching 
-* Get 'when()' method working with toggling.
 * Make the bot's state modifiable.
+* Add FIFO file interaction and command line controls (botinator [start bot.py | stop bot.py | status bot.py])
 * Dynamically update bot while running event loop.
 * Write tests
