@@ -3,46 +3,55 @@
 
 ## Super declarative IRC bot API
 
-## Create your bot:
+## Install
+
+  pip install botinator 
+
+## Create your bot
 
 Set up server, port, nick, username, ircname, and channel.
 
-	import botinator
-	bot = botinator.Bot('irc.freenode.net', 6669)
-	bot.user_and_ircname('bot', 'Winston Churchill')
+	from botinator import botinator
+	bot = botinator.Bot('irc.freenode.net')
 	bot.nick('bottymcbotterson')
-	bot.join('#your_channel')
+	bot.user_and_ircname('bot', 'Winston Churchill')
+	bot.join('#botparty')
 
 ## Basic behavior:
+
 Bind a pattern to a response:
 
-	bot.bind('hello bot', 'well hi there')
-	bot.bind('do you like cheese?', 'decidedly so')
+	bot.listen('hello bot', 'well hi there')
+	bot.listen('do you like cheese?', 'decidedly so')
 
 The pattern can be a regex:
 
 	bot.bind(r'[(hello)|(hi)|(hey)]', 'well hi there')
 
-Regex syntax: http://docs.python.org/2/library/re.html#regular-expression-syntax
-
 ## More complex behavior:
+
 Instead of responding with a string, botinator can respond with a callback
 function that allows more complex behavior.
 
-This callback function takes the regular expression matches and must return a
-string as its response.
+The callback function looks like:
 
-The callback function also has access to the nickname of the messenger who
-initiated the callback.
+	def callback(matches, messenger, state):
+		return response
 
-	def get_time(matches, messenger):
+Matches are the regex matches that the bot made, the messenger is the sender of
+the matched message, and the state is a modifiable dictionary that can store
+any ongoing data for the bot.
+
+For example, a simple time printing callback:
+
+	def get_time(matches, messenger, state):
 		return time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
 
 	bot.bind('hey bot!: wat time', get_time)
 
 The 'matches' parameter passed into your callback functions will be a list of successfuly matched strings from your regex.
 
-	bot.bind(r'yo bot: \d+ \+ \d+', add_yr_numbers)
+	bot.bind(r'yo bot: (\d+) \+ (\d+)', add_yr_numbers)
 
 	def add_yr_numbers(matches, messenger):
 		try:
@@ -51,19 +60,19 @@ The 'matches' parameter passed into your callback functions will be a list of su
 			return str(left + right)
 		except: return 'wat'
 
-Exceptions in your callback functions won't kill your bot if you don't catch em, but will just be printed. He's a toughy.
+Exceptions in your callback functions won't kill your bot if you don't catch em, but will just be printed. She's a toughy.
 
-## Event responses
+## Time-based messages (cron party)
 
-Sometimes you want behavior that's not based on messages. You can bind a
-predicate function to a specific response:
+The bot has cron-like functionality using the cron() method. The cron() method is structured like:
 
-	def is_420: return time.strftime("%I%M") == "0420"
-	bot.when(is_420,'420')
+  cron((minute, hour, date, month, weekday), response, channel)
 
-## Supports chaining
+It'll run at times that match the tuple similar to cron. Use None for '*'. For example:
 
-	bot.when(something,'say something').bind(r'(.*) pie(\.*)',eat_pie).when(happy,clap)
+	bot.cron((20, 16, None, None, None), '420!', chan)
+
+The bot will announce '420!' once everyday at 4:20pm
 
 ## Start your bot when you're done binding stuff
 
