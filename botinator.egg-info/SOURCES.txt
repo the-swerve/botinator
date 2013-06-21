@@ -1,0 +1,8 @@
+botinator/__init__.py
+botinator/botinator.py
+botinator/setup.py
+botinator.egg-info/PKG-INFO
+botinator.egg-info/SOURCES.txt
+botinator.egg-info/dependency_links.txt
+botinator.egg-info/not-zip-safe
+botinator.egg-info/top_level.txt

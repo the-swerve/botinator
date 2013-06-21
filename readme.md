@@ -71,7 +71,9 @@ predicate function to a specific response:
 
 ### todo
 
-* Make the bot's state modifiable.
-* Add FIFO file interaction and command line controls (botinator [start bot.py | stop bot.py | status bot.py])
-* Dynamically update bot while running event loop.
-* Write tests
+* Testing.
+
+### ideas
+
+* It'd be cool if it were FIFO filesystem-based, like the 'ii' IRC client.
+* It'd be cool if it backgrounded and had a CLI for starting/stopping/status checks 
