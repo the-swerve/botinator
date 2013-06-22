@@ -74,11 +74,7 @@ class Bot:
 		messenger nick.
 		"""
 		if hasattr(response, '__call__'): # response is a callback function
-			try:
-				res = response(*args)
-			except:
-				print('Reponse callback threw exception: ', sys.exc_info()[0], 'line' + str(sys.exc_info()[2].tb_lineno))
-				return
+			res = response(*args)
 		else:
 			res = response
 		print('Responding: ' + res)
@@ -106,7 +102,7 @@ class Bot:
 				matches = re.findall(p, data)
 				if matches:
 					print("\nFound match: " + str(p))
-					self.respond(channel,self.bindings[p],matches,messenger)
+					self.respond(channel, self.bindings[p], matches, messenger, self.state)
 					break
 
 	def check_crons(self):
@@ -115,7 +111,7 @@ class Bot:
 			# When time is current time and toggle is False, respond and set toggle to True.
 			# When time is not current time and toggle is True, set toggle to False.
 			if cron_active and not self.time_toggles[time_tuple]:
-				self.respond(channel,response)
+				self.respond(channel, response, '', '', self.state)
 				print(self.time_toggles[time_tuple])
 				self.time_toggles[time_tuple] = True
 			elif not cron_active and self.time_toggles[time_tuple]:
