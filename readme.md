@@ -26,7 +26,7 @@ Bind a pattern to a response:
 
 The pattern can be a regex:
 
-	bot.bind(r'[(hello)|(hi)|(hey)]', 'well hi there')
+	bot.listen(r'[(hello)|(hi)|(hey)]', 'well hi there')
 
 ## More complex behavior:
 
@@ -47,11 +47,11 @@ For example, a simple time printing callback:
 	def get_time(matches, messenger, state):
 		return time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
 
-	bot.bind('hey bot!: wat time', get_time)
+	bot.listen('hey bot!: wat time', get_time)
 
 The 'matches' parameter passed into your callback functions will be a list of successfuly matched strings from your regex.
 
-	bot.bind(r'yo bot: (\d+) \+ (\d+)', add_yr_numbers)
+	bot.listen(r'yo bot: (\d+) \+ (\d+)', add_yr_numbers)
 
 	def add_yr_numbers(matches, messenger):
 		try:
@@ -74,7 +74,7 @@ It'll run at times that match the tuple similar to cron. Use None for '*'. For e
 
 The bot will announce '420!' once everyday at 4:20pm
 
-## Start your bot when you're done binding stuff
+## Start your bot when you're done binding listeners
 
 	bot.live()
 
