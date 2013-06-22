@@ -5,7 +5,11 @@
 
 ## Install
 
-  pip install botinator 
+	git clone http://github.com/the-swerve/botinator
+	cd botinator
+	python setup.py install
+
+pip coming soon.
 
 ## Create your bot
 
